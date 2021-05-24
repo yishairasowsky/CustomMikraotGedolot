@@ -1,6 +1,9 @@
 import os
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 import subprocess
+import jinja2
+
+from jinja2 import Environment, FileSystemLoader, select_autoescape
+# from jinja import Environment, FileSystemLoader, select_autoescape
 from DataStructures import BookContent
 
 
@@ -125,12 +128,15 @@ class TemplateManager:
         self.book_template = None
 
     def config_env(self):
+
+        file_loader = FileSystemLoader('Tools\\CustomMikraotGedolot\\templates')
+
         env = Environment(
-            loader=FileSystemLoader('templates'),
+            loader = file_loader,
             autoescape=select_autoescape(['html', 'xml'])
         )
 
-        self.book_template = env.get_template('daf layout.html')
+        self.book_template = env.get_template('index.html')
 
         if not 'generated' in os.listdir():
             os.mkdir('generated')
@@ -146,8 +152,7 @@ class TemplateManager:
         with open('generated/{}/html/rendered_html.html'.format(self.output_file), 'wb') as f:
             f.write(book_html.encode('utf-8'))
 
-        subprocess.Popen(['prince', 'generated/{}/html/rendered_html.html'.format(self.output_file),
-                          '-s', 'templates/styles.css', '-o', 'generated/{}/pdf/out.pdf'.format(self.output_file)])
+        # subprocess.Popen(['prince', 'generated/{}/html/rendered_html.html'.format(self.output_file),'-s', 'templates/styles.css', '-o', 'generated/{}/pdf/out.pdf'.format(self.output_file)])
         print('document rendered!')
 
 

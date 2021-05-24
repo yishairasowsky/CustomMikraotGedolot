@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+
+<html lang="he" dir="rtl">
+<section id="cover-page">
+    <h1>{{  book_info.title  }}</h1>
+
+    <br/>
+    <h2>
+           עם תרגום 
+           <br/>
+        {{  book_info.trans  }}
+    </h2>
+    <br/>
+    <br/>
+    <h2>
+        מפורש ומבואר ע"י 
+        <br/>
+        {% for c in book_info.comms %}
+
+        {{ c }}
+        <br/>
+
+        {% endfor %}
+    </h2> 
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <p>
+        This volume was generated dynamically using a Custom Mikraot Gedolot tool developed for Sefaria's summer contest.<br/> <br/>
+        Created by: <br/> Eshel Sinclair <br/> eshel.sinclair@gmail.com
+    </p>
+</section>
+
+{% for page in book %}
+<section class="page-header">
+    <h1> {{  page.book  }}  {{ page.chapter }}</h1>
+</section>
+
+<section class="page-body">
+    <div class="border">
+        <section class="main-content">
+            <div style="display: flex;" class="main-text-container">
+                <p class="main-text-verse">{{ page.verse }}  </p>
+                <p class="main-text">{{ page.content }}</p>    
+            </div>
+            <p class="trans">{{ page.translation | safe }}</p>
+            <div style="clear: both;"></div>
+        </section>
+        <section class="commentary-section">
+            {% for com in page.commentators%}
+            <div class="commentary">
+                <h1> {{com['name']}} </h1>
+                <div class="commentary-text">
+                    {% for c in com.text %}
+                    <p class="commentary-text">{{  c | safe }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+    {{ page.debug }}
+</section>
+{% endfor %}
+
+</html>

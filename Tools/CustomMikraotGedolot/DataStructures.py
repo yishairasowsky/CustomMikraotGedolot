@@ -48,5 +48,6 @@ class BookContent:
 
 
 if __name__ == '__main__':
-    book = BookContent('Genesis', 'en/Bible du Rabbinat 1899 [fr]', commentators=['Rashi on Genesis', 'Malbim on Genesis'])
+    # book = BookContent('Genesis', 'en/Bible du Rabbinat 1899 [fr]', commentators=['Rashi on Genesis', 'Malbim on Genesis'])
+    book = BookContent('Genesis', 'en/Bible du Rabbinat 1899 [fr]', commentators=['Rashi on Genesis'])
     book.populate()

@@ -26,16 +26,16 @@ app.post('/generate', (req, res) => {
     const book = req.body.book
     const trans = req.body.trans
     const coms = req.body.coms
-    let fileIDs = JSON.parse(fs.readFileSync(join('Tools/CustomMikraotGdolot/generated/file_ids.json')))
+    let fileIDs = JSON.parse(fs.readFileSync(join('Tools/CustomMikraotGedolot/generated/file_ids.json')))
     console.log(req.body)
 
     // TODO: change this to a real hashing function 
     var id = Math.round(Math.random() * 2048)
-    fileIDs[id] = join('Tools/CustomMikraotGdolot/generated/', id.toString(), '/pdf/out.pdf')
+    fileIDs[id] = join('Tools/CustomMikraotGedolot/generated/', id.toString(), '/pdf/out.pdf')
 
 
     // console.log(fileIDs[id])
-    var args = ['Tools/CustomMikraotGdolot/GeneratePage_cli.py', '-b', book, '-t', trans, '--out', id, '-c']
+    var args = ['Tools/CustomMikraotGedolot/GeneratePage_cli.py', '-b', book, '-t', trans, '--out', id, '-c']
 
     coms.map(c => {
         args.push(c.base_ref)
@@ -49,11 +49,11 @@ app.post('/generate', (req, res) => {
     python.stderr.on('data', (data) => {
         console.log(`stderr: ${data}`);
         fileIDs[id] = 520
-        fs.writeFile('Tools/CustomMikraotGdolot/generated/file_ids.json', JSON.stringify(fileIDs), err => console.log(err))
+        fs.writeFile('Tools/CustomMikraotGedolot/generated/file_ids.json', JSON.stringify(fileIDs), err => console.log(err))
 
     });
 
-    fs.writeFile('Tools/CustomMikraotGdolot/generated/file_ids.json', JSON.stringify(fileIDs), err => console.log(err))
+    fs.writeFile('Tools/CustomMikraotGedolot/generated/file_ids.json', JSON.stringify(fileIDs), err => console.log(err))
 
     python.on('exit', c => {
 
@@ -63,7 +63,7 @@ app.post('/generate', (req, res) => {
 })
 
 app.get('/file/:id', (req, res) => {
-    fileIDs = JSON.parse(fs.readFileSync('Tools/CustomMikraotGdolot/generated/file_ids.json'))
+    fileIDs = JSON.parse(fs.readFileSync('Tools/CustomMikraotGedolot/generated/file_ids.json'))
     if (fileIDs[req.params.id] == 520) {
         res.sendStatus(520)
         res.send()

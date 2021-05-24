@@ -1,0 +1,14 @@
+python Tools\CustomMikraotGedolot\GeneratePage_cli.py -b Genesis -t "en/Bible du Rabbinat 1899 [fr]" -c "Rashi on Genesis" --out Bereishit --range "(1, 3)"
+
+{'b': 'Genesis', 'out': 'Bereishit', 't': 'en/Bible du Rabbinat 1899 [fr]', 'c': ['Rashi on Genesis'], 'range': (1, 4)}
+
+Genesis
+<class 'str'>
+['Rashi on Genesis']
+<class 'list'>
+Bereishit
+<class 'str'>
+en/Bible du Rabbinat 1899 [fr]
+<class 'str'>
+(1, 4)
+<class 'tuple'>

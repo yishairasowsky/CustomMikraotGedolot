@@ -35,6 +35,7 @@ class SefariaAPIText(Text):
 
         book_content = []
         if self.range is not None:
+        # if False:
             for i in range(self.range[0], self.range[1]):
                 req = '{}/texts/{}.{}{}?pad=0'.format(self.base_url, self.Name, str(i), params)
                 async with self.session.get(req) as res:
@@ -42,13 +43,20 @@ class SefariaAPIText(Text):
                     book_content.append(book[text_key])
                     # print('response for: {}'.format(req))
         else:
-            req = '{}/texts/{}{}?pad=0'.format(self.base_url, self.Name, params)
-            async with self.session.get(req) as res:
-                book = await res.json()
-                book_content = book[text_key]
-                # print('response for: {}'.format(req))
+            
+            if False:
 
-        self.heName = book['heIndexTitle']
+                req = '{}/texts/{}{}?pad=0'.format(self.base_url, self.Name, params)
+                
+                async with self.session.get(req) as res:
+                
+                    book = await res.json()
+                    # book = await res.json(content_type='text/html')
+
+                    book_content = book[text_key]
+                    print('response for: {}'.format(req))
+
+        # self.heName = book['heIndexTitle']
 
         try:
             self.content = book_content
